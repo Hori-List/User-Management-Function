@@ -42,6 +42,7 @@ async function setupDb() {
   const data = {
     user: userId,
     username: eventData.name,
+    email: eventData.email,
   };
   await db.createDocument(usersCollection, data, [`*`], []).catch((err) => {
     console.error(`Could not create database entry for user ${ userId }.`);
