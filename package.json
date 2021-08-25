@@ -1,0 +1,30 @@
+{
+  "name": "user-sync-function",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc src/function.ts --outdir dist/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hori-List/User-Sync-Function.git"
+  },
+  "keywords": [
+    "hori",
+    "appwrite",
+    "node"
+  ],
+  "author": "radmacher.club",
+  "bugs": {
+    "url": "https://github.com/Hori-List/User-Sync-Function/issues"
+  },
+  "homepage": "https://github.com/Hori-List/User-Sync-Function#readme",
+  "devDependencies": {
+    "@types/node": "^16.7.1",
+    "tslint": "^6.1.3",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "node-appwrite": "^2.4.0"
+  }
+}
