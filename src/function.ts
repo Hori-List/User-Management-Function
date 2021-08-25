@@ -57,9 +57,9 @@ async function updateName() {
     console.error(`Could not find user document for user ${ userId }`);
     process.exit(1);
   }
-  const id = documents[0].$id;
-  await db.updateDocument(usersCollection, id, {username: eventData.name}).catch((err) => {
-    console.error(`Could not update username for user ${userId}`);
+  const id = documents[ 0 ].$id;
+  await db.updateDocument(usersCollection, id, { username: eventData.name }).catch((err) => {
+    console.error(`Could not update username for user ${ userId }`);
     console.error(err);
     process.exit(1);
   });
