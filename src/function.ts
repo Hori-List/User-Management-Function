@@ -10,7 +10,7 @@ client
 //initialise the database SDK
 const db = new Database(client);
 //initialise the accounts SDK
-const acc = new Account(clinet);
+const acc = new Account(client);
 
 const eventData = JSON.parse(process.env.APPWRITE_FUNCTION_EVENT_DATA);
 const usersCollection = process.env.APPWRITE_USERS_COLLECTION;
