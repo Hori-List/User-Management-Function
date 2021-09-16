@@ -2,6 +2,11 @@
 A simple function that manages users.
 It allows for easy access to usernames, sends verification emails and much more.
 
+## Events
+- **account.create**
+- **account.update.name**
+- **users.create**
+
 ## Environment variables
 - **APPWRITE_USERS_COLLECTION** The id of the users collection
 - **APPWRITE_ENDPOINT** The Appwrite endpoints api url
