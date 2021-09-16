@@ -1,4 +1,4 @@
-import { Client, Database } from 'node-appwrite';
+import { Client, Database, Account } from 'node-appwrite';
 
 // initialise the client SDK
 let client = new Client();
@@ -9,6 +9,8 @@ client
 
 //initialise the database SDK
 const db = new Database(client);
+//initialise the accounts SDK
+const acc = new Account(clinet);
 
 const eventData = JSON.parse(process.env.APPWRITE_FUNCTION_EVENT_DATA);
 const usersCollection = process.env.APPWRITE_USERS_COLLECTION;
@@ -18,14 +20,15 @@ const userId = eventData.$id;
 
 async function run() {
   console.log(eventData);
-  switch(trigger) {
+  switch (trigger) {
     case 'account.create':
     case 'users.create':
-      console.log(`Setting up database for user ${ userId }`);
+      console.log(`Setting up database for user ${userId}`);
       await setupDb();
+      await sendVerificationEmail();
       break;
     case 'account.update.name':
-      console.log(`Updating name for user ${ userId }`);
+      console.log(`Updating name for user ${userId}`);
       await updateName();
       break;
     default:
@@ -45,21 +48,30 @@ async function setupDb() {
     email: eventData.email,
   };
   await db.createDocument(usersCollection, data, [`*`], []).catch((err) => {
-    console.error(`Could not create database entry for user ${ userId }.`);
+    console.error(`Could not create database entry for user ${userId}.`);
     console.error(err);
     process.exit(1);
   });
 }
 
 async function updateName() {
-  const { documents } = await db.listDocuments(usersCollection, [`user=${ userId }`]);
+  const { documents } = await db.listDocuments(usersCollection, [`user=${userId}`]);
   if (!documents) {
-    console.error(`Could not find user document for user ${ userId }`);
+    console.error(`Could not find user document for user ${userId}`);
     process.exit(1);
   }
-  const id = documents[ 0 ].$id;
+  const id = documents[0].$id;
   await db.updateDocument(usersCollection, id, { username: eventData.name }).catch((err) => {
-    console.error(`Could not update username for user ${ userId }`);
+    console.error(`Could not update username for user ${userId}`);
+    console.error(err);
+    process.exit(1);
+  });
+}
+
+async function sendVerificationEmail() {
+  const url = `https://hori.radmacher.club`
+  await acc.createVerification(url).catch((err) => {
+    console.error(`Could not create verification email for user ${userId}`);
     console.error(err);
     process.exit(1);
   });
