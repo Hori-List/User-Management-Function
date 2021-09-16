@@ -1,5 +1,6 @@
-# User sync function
-A simple function that provides easy access to usernames.
+# User management function
+A simple function that manages users.
+It allows for easy access to usernames, sends verification emails and much more.
 
 ## Environment variables
 - **APPWRITE_USERS_COLLECTION** The id of the users collection
